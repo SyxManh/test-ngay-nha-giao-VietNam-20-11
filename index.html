@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lời Tri Ân Tinh Tế 20/11</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================================== */
+        /* CSS NÂNG CẤP (Responsive và Thẩm mỹ cao) */
+        /* ========================================================== */
+        :root {
+            --color-primary: #8e24aa; /* Tím đậm */
+            --color-secondary: #ffb300; /* Vàng đậm */
+            --color-text: #333;
+            --bg-light: #fbe6ff; /* Hồng tím nhạt */
+            --bg-dark: #e8d5f1; /* Tím nhạt hơn */
+            --font-title: 'Dancing Script', cursive;
+            --font-body: 'Merriweather', serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-dark) 100%);
+            font-family: var(--font-body);
+            color: var(--color-text);
+            text-align: center;
+            overflow: hidden;
+            padding: 20px 10px;
+        }
+
+        /* ------------------------------------------- */
+        /* 1. MÀN HÌNH KHỞI ĐẦU */
+        /* ------------------------------------------- */
+        #initial-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 1s, transform 1s;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 100;
+        }
+
+        .flower-icon {
+            font-size: 18vmin; 
+            animation: pulse 1.5s infinite;
+        }
+
+        .instruction-text {
+            margin-top: 25px;
+            font-size: 4.5vmin; 
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.08); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ------------------------------------------- */
+        /* 2. NỘI DUNG CHÍNH */
+        /* ------------------------------------------- */
+        #main-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s;
+            width: 100%;
+            max-width: 650px;
+            padding-top: 20px; 
+        }
+
+        .header-text {
+            font-size: 6vmin; 
+            font-family: var(--font-title);
+            color: var(--color-primary);
+            font-weight: 700;
+            margin-bottom: 25px;
+            animation: fadeInDown 1s ease-out;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+        }
+
+        /* KHUNG ẢNH/VIDEO (Responsive Tỷ lệ 10:7) */
+        #photo-frame {
+            width: 90vw; 
+            max-width: 500px;
+            height: 0; 
+            padding-bottom: 70%; /* Giữ tỷ lệ khung hình */
+            
+            background-color: #fff;
+            border: 10px solid var(--color-secondary); 
+            border-radius: 12px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+            margin: 20px auto 40px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ✅ FIX LỖI: object-fit: contain; để ảnh/video vừa vặn không bị cắt */
+        #photo-display, #video-display {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            background-color: #f0f0f0; /* Màu nền cho phần trống */
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* KHUNG GÕ CHỮ */
+        #typing-box {
+            min-height: 120px;
+            padding: 25px;
+            border: 4px dashed var(--color-secondary); 
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.95);
+            font-size: 3.2vmin; /* Responsive */
+            font-family: var(--font-body);
+            color: var(--color-text);
+            text-align: left;
+            white-space: pre-wrap;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            line-height: 1.6;
+        }
+        
+        /* ------------------------------------------- */
+        /* MEDIA QUERY (Tối ưu cho Điện thoại) */
+        /* ------------------------------------------- */
+        @media (max-width: 600px) {
+            .header-text {
+                font-size: 8.5vmin; 
+            }
+            #typing-box {
+                font-size: 4vmin;
+                min-height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="background-music" loop>
+        <source src="nhac2011.mp3" type="audio/mpeg"> 
+    </audio>
+
+    <div id="initial-screen">
+        <div class="flower-icon">💐</div>
+        <div class="instruction-text">Chạm nhẹ vào bó hoa để mở lời chúc!</div>
+    </div>
+
+    <div id="main-content">
+        <div id="header-text" class="header-text">🌸 Chào Mừng Ngày Nhà Giáo Việt Nam 20/11 🌸</div>
+        
+        <div id="photo-frame">
+            <img id="photo-display" src="" alt="Ảnh Chúc Mừng">
+             <video id="video-display" playsinline muted loop style="display: none;"></video>
+        </div>
+        
+        <div id="typing-box"></div>
+    </div>
+
+    <script>
+        // JAVASCRIPT LOGIC
+        
+        // --- Cấu hình Nội dung ---
+        const contentData = [
+            {
+                header: "💐 LỜI CHÚC TỪ TÂM 💐",
+                image: "loi-chuc-ngay-20-11.jpg", 
+                video: "", 
+                message: "Kính chúc thầy cô thật nhiều sức khỏe, hạnh phúc và luôn giữ vững niềm đam mê, nhiệt huyết với sự nghiệp 'trồng người' cao quý. \nXin tri ân công lao to lớn của thầy cô."
+            },
+            {
+                header: "🌹 NGƯỜI LÁI ĐÒ TẬN TỤY 🌹",
+                image: "unnamed (1).jpg", 
+                video: "", // Thay bằng tên file video nếu muốn
+                message: "Xin cảm ơn những bài giảng sâu sắc, những lời khuyên chân thành và sự tận tâm không mệt mỏi đã dìu dắt chúng em nên người. Công ơn này mãi mãi khắc ghi."
+            },
+            {
+                header: "💖 TRI ÂN SÂU SẮC 💖",
+                image: "images (2).jpg", 
+                video: "", 
+                message: "Chúc thầy cô có một ngày 20/11 thật ấm áp, trọn vẹn và ý nghĩa bên gia đình, đồng nghiệp và tất cả các thế hệ học trò thân yêu."
+            }
+        ];
+        
+        const typingSpeed = 50; 
+        const delayBetweenSlides = 5000; 
+
+        // --- Tham chiếu DOM ---
+        const initialScreen = document.getElementById('initial-screen');
+        const mainContent = document.getElementById('main-content');
+        const headerTextElement = document.getElementById('header-text');
+        const photoDisplay = document.getElementById('photo-display');
+        const videoDisplay = document.getElementById('video-display'); 
+        const typingBox = document.getElementById('typing-box');
+        const backgroundMusic = document.getElementById('background-music'); 
+        
+        let currentSlideIndex = 0;
+        let isTyping = false;
+        let typingTimeout;
+        let slideInterval;
+        
+        // --- Hàm Gõ Chữ (Giữ nguyên) ---
+        function typeMessage(element, message, callback) {
+            if (isTyping) return;
+            isTyping = true;
+            element.textContent = ''; 
+            let charIndex = 0;
+
+            function type() {
+                if (charIndex < message.length) {
+                    element.textContent += message.charAt(charIndex);
+                    charIndex++;
+                    typingTimeout = setTimeout(type, typingSpeed);
+                } else {
+                    isTyping = false;
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        // --- Hàm Hiển thị Slide (Giữ nguyên) ---
+        function showSlide(index) {
+            if (index >= contentData.length) {
+                index = 0; 
+            }
+            currentSlideIndex = index;
+            const slide = contentData[index];
+
+            // Ẩn cả ảnh và video trước khi chuyển slide
+            photoDisplay.style.opacity = 0;
+            videoDisplay.style.opacity = 0;
+            videoDisplay.pause();
+
+            setTimeout(() => {
+                // 1. Logic Ảnh/Video
+                if (slide.video && slide.video !== "") {
+                    // HIỂN THỊ VIDEO
+                    videoDisplay.src = slide.video;
+                    videoDisplay.style.display = 'block';
+                    photoDisplay.style.display = 'none';
+                    
+                    videoDisplay.load();
+                    videoDisplay.onloadeddata = () => {
+                        videoDisplay.play().catch(e => console.log("Video play blocked:", e));
+                        videoDisplay.style.opacity = 1; 
+                    };
+                    
+                } else {
+                    // HIỂN THỊ ẢNH
+                    videoDisplay.style.display = 'none';
+                    photoDisplay.style.display = 'block';
+                    photoDisplay.src = slide.image; 
+                    photoDisplay.onload = () => {
+                        photoDisplay.style.opacity = 1; 
+                    };
+                }
+
+                // 2. Gõ Chữ
+                typeMessage(typingBox, slide.message, () => {
+                    if (slideInterval) clearInterval(slideInterval);
+                    slideInterval = setTimeout(nextSlide, delayBetweenSlides);
+                });
+            }, 500); 
+        }
+        
+        // --- Hàm Chuyển Slide Tiếp theo (Giữ nguyên) ---
+        function nextSlide() {
+            showSlide(currentSlideIndex + 1);
+        }
+
+        // --- Xử lý sự kiện Chạm ---
+        initialScreen.addEventListener('click', () => {
+            initialScreen.style.opacity = 0;
+            initialScreen.style.transform = 'translateY(-50px)';
+            
+            // BẮT ĐẦU PHÁT NHẠC
+            backgroundMusic.play().catch(error => {
+                console.log("Không thể phát nhạc:", error);
+            });
+
+            setTimeout(() => {
+                initialScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                setTimeout(() => {
+                    mainContent.style.opacity = 1;
+                    showSlide(0); 
+                }, 100);
+            }, 1000); 
+        });
+        
+    </script>
+</body>
+</html>
