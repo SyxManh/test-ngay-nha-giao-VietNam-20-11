@@ -31,8 +31,6 @@
             background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-dark) 100%);
             font-family: var(--font-body);
             color: var(--color-text);
-            text-align: center;
-            /* RẤT QUAN TRỌNG: Đảm bảo body đủ cao để hoa rơi */
             overflow: hidden; 
             padding: 20px 10px;
             position: relative; 
@@ -44,7 +42,7 @@
         .confetti {
             position: absolute;
             width: 100%;
-            height: 100vh; /* QUAN TRỌNG: Chiều cao tối thiểu 100vh */
+            height: 100vh; 
             top: 0;
             left: 0;
             pointer-events: none;
@@ -57,10 +55,10 @@
             line-height: 1;
             opacity: 0;
             user-select: none;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7); /* Tăng độ sáng */
-            filter: blur(0.2px); /* Giảm mờ để sắc nét hơn */
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7); 
+            filter: blur(0.2px); 
             animation-iteration-count: infinite;
-            animation-fill-mode: forwards; /* Giữ trạng thái cuối */
+            animation-fill-mode: forwards; 
         }
 
         /* Keyframes GỘP cho chuyển động rơi + xoay + dao động */
@@ -75,14 +73,13 @@
                 opacity: 0.9; 
             }
             100% { 
-                /* Sử dụng translate 2D để rơi và dao động cùng lúc */
                 transform: translate(-5vw, 110vh) rotate(1080deg) scale(1.1); 
                 opacity: 0; 
             }
         }
         
         /* ========================================================== */
-        /* CÁC PHẦN CÒN LẠI (Giữ nguyên) */
+        /* CÁC PHẦN CÒN LẠI (Đã giữ nguyên) */
         /* ========================================================== */
         #initial-screen {
             display: flex;
@@ -209,8 +206,8 @@
         <div id="header-text" class="header-text">🌸 Chào Mừng Ngày Nhà Giáo Việt Nam 20/11 🌸</div>
         
         <div id="photo-frame">
-            <img id="photo-display" src="" alt="Ảnh Chúc Mừng">
-             <video id="video-display" playsinline muted loop style="display: none;"></video>
+            <img id="photo-display" >
+             <video id="video-display" playsinline style="display: none;"></video>
         </div>
         
         <div id="typing-box"></div>
@@ -239,15 +236,10 @@
                 image: "" 
             },
             
-            {
-                header: "🌹 NGƯỜI LÁI ĐÒ TẬN TỤY 🌹",
-                image: "unnamed (1).jpg", 
-                video: "", 
-                messages: ["Xin cảm ơn những bài giảng sâu sắc, những lời khuyên chân thành và sự tận tâm không mệt mỏi đã dìu dắt chúng em nên người. Công ơn này mãi mãi khắc ghi."],
-            },
+         
             {
                 header: "💖 TRI ÂN SÂU SẮC 💖",
-                image: "images (2).jpg", 
+                image: "unnamed (1).jpg", 
                 video: "", 
                 messages: ["Chúc thầy cô có một ngày 20/11 thật ấm áp, trọn vẹn và ý nghĩa bên gia đình, đồng nghiệp và tất cả các thế hệ học trò thân yêu. 🎁"],
             }
@@ -257,8 +249,8 @@
         const delayBetweenSlides = 5000; 
         const delayBetweenMessages = 2000; 
         const petalIcon = '🌸'; 
-
-        // --- Tham chiếu DOM ---
+        
+        
         const initialScreen = document.getElementById('initial-screen');
         const mainContent = document.getElementById('main-content');
         const headerTextElement = document.getElementById('header-text');
@@ -270,35 +262,27 @@
 
         let currentSlideIndex = 0;
         let isTyping = false;
-        let typingTimeout;
         let slideInterval;
-        let videoEnded = false;
+        let videoEnded = false; 
         
-        // --- Hàm Tạo Hiệu Ứng Hoa Rơi (ĐÃ FIX) ---
+       
         function createConfetti() {
-            const numParticles = 60; // Tăng thêm số lượng
+            const numParticles = 60;
             for (let i = 0; i < numParticles; i++) {
                 const petal = document.createElement('div');
                 petal.classList.add('petal');
                 petal.innerHTML = petalIcon; 
 
-                // Vị trí xuất phát ngẫu nhiên
                 const startX = Math.random() * 100;
-                
-                // Kích thước ngẫu nhiên
                 const randomSize = Math.random() * (25 - 15) + 15; 
                 petal.style.fontSize = `${randomSize}px`;
 
-                // Độ dài hoạt ảnh ngẫu nhiên (chậm rãi hơn)
-                const fallDuration = `${10 + Math.random() * 8}s`; // Từ 10s đến 18s
-                
-                // Delay ngẫu nhiên để cánh hoa không rơi cùng lúc
-                const delay = `${-Math.random() * 20}s`; // Từ 0 đến 20s delay âm
+                const fallDuration = `${10 + Math.random() * 8}s`; 
+                const delay = `${-Math.random() * 20}s`; 
 
-                // Set vị trí ban đầu (dùng left)
                 petal.style.left = `${startX}vw`;
 
-                // Sử dụng Keyframe GỘP: 'petal-fall'
+                
                 petal.style.animation = `
                     petal-fall ${fallDuration} ${delay} ease-in-out infinite
                 `;
@@ -307,10 +291,13 @@
             }
         }
         
-        // --- Hàm Chạy Tin Nhắn Tuần Tự ---
+        
+        let messagesCompleted = false; 
+        
         function runMessagesSequentially(messages, index, finalCallback) {
             if (index >= messages.length) {
                 isTyping = false;
+                messagesCompleted = true; 
                 if (finalCallback) finalCallback();
                 return;
             }
@@ -325,11 +312,12 @@
             });
         }
         
-        // --- Hàm Gõ Chữ ---
+      
         function typeMessage(element, message, callback) {
             if (isTyping) return;
             isTyping = true;
-            clearTimeout(typingTimeout); 
+            messagesCompleted = false; 
+            clearTimeout(window.typingTimeout); 
             element.textContent = ''; 
             let charIndex = 0;
 
@@ -337,7 +325,7 @@
                 if (charIndex < message.length) {
                     element.textContent += message.charAt(charIndex);
                     charIndex++;
-                    typingTimeout = setTimeout(type, typingSpeed);
+                    window.typingTimeout = setTimeout(type, typingSpeed);
                 } else {
                     isTyping = false;
                     if (callback) callback();
@@ -346,51 +334,70 @@
             type();
         }
 
-        // --- Hàm Hiển thị Slide ---
+        
         function showSlide(index) {
+            
             if (index >= contentData.length) {
-                index = 0; 
+               
+                backgroundMusic.pause();
+                backgroundMusic.currentTime = 0; 
+                
+                
+                return; 
             }
+            
             currentSlideIndex = index;
             const slide = contentData[index];
 
+           
             photoDisplay.style.opacity = 0;
             videoDisplay.style.opacity = 0;
             videoDisplay.pause();
             videoDisplay.onended = null; 
             if (slideInterval) clearInterval(slideInterval);
-            clearTimeout(typingTimeout);
+            clearTimeout(window.typingTimeout); 
             isTyping = false;
             videoEnded = false; 
+            messagesCompleted = false; 
             
             headerTextElement.textContent = slide.header;
 
             setTimeout(() => {
+                
                 if (slide.video && slide.video !== "") {
+                    
                     videoDisplay.src = slide.video;
                     videoDisplay.style.display = 'block';
                     photoDisplay.style.display = 'none';
                     
                     videoDisplay.load();
                     videoDisplay.onloadeddata = () => {
+                        videoDisplay.muted = true;
                         videoDisplay.play().catch(e => console.log("Video play blocked:", e));
                         videoDisplay.style.opacity = 1; 
                     };
                     
+                   
                     videoDisplay.onended = () => {
                         videoEnded = true;
-                        if (!isTyping) { 
+                        
+                        if (messagesCompleted) { 
                              slideInterval = setTimeout(nextSlide, 1000);
                         }
                     };
                     
+                    
                     runMessagesSequentially(slide.messages, 0, () => {
+                        
                         if (videoEnded) {
                             slideInterval = setTimeout(nextSlide, 1000);
+                        } else if (currentSlideIndex === contentData.length - 1) {
+                            
                         }
                     });
                     
                 } else {
+                    
                     videoDisplay.style.display = 'none';
                     photoDisplay.style.display = 'block';
                     photoDisplay.src = slide.image; 
@@ -398,24 +405,33 @@
                         photoDisplay.style.opacity = 1; 
                     };
                     
+                    
                     runMessagesSequentially(slide.messages, 0, () => {
-                        slideInterval = setTimeout(nextSlide, delayBetweenSlides);
+                       
+                        if (currentSlideIndex < contentData.length - 1) {
+                            slideInterval = setTimeout(nextSlide, delayBetweenSlides);
+                        } else {
+                            
+                            backgroundMusic.pause();
+                            backgroundMusic.currentTime = 0;
+                            
+                        }
                     });
                 }
             }, 500); 
         }
         
-        // --- Hàm Chuyển Slide Tiếp theo ---
+        
         function nextSlide() {
             showSlide(currentSlideIndex + 1);
         }
 
-        // --- Xử lý sự kiện Chạm ---
+       
         initialScreen.addEventListener('click', () => {
             initialScreen.style.opacity = 0;
             initialScreen.style.transform = 'translateY(-50px)';
             
-            createConfetti(); // BẮT ĐẦU HIỆU ỨNG HOA RƠI
+            createConfetti(); 
 
             backgroundMusic.play().catch(error => {
                 console.log("Không thể phát nhạc:", error);
