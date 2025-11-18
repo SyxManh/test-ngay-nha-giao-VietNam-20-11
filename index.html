@@ -37,7 +37,7 @@
         }
 
         /* ========================================================== */
-        /* HIỆU ỨNG CÁNH HOA 🌸 RƠI (ĐÃ FIX VÀ TỐI ƯU) */
+        /* HIỆU ỨNG CÁNH HOA 🌸 RƠI */
         /* ========================================================== */
         .confetti {
             position: absolute;
@@ -79,7 +79,7 @@
         }
         
         /* ========================================================== */
-        /* CÁC PHẦN CÒN LẠI (Đã giữ nguyên) */
+        /* CÁC PHẦN CÒN LẠI */
         /* ========================================================== */
         #initial-screen {
             display: flex;
@@ -193,7 +193,7 @@
 <body>
     <div id="confetti-container" class="confetti"></div>
 
-    <audio id="background-music" loop>
+    <audio id="background-music"> 
         <source src="nhac2011.mp3" type="audio/mpeg"> 
     </audio>
 
@@ -269,7 +269,7 @@
         let slideInterval;
         let videoEnded = false; 
         
-        // --- Hàm Tạo Hiệu Ứng Hoa Rơi (ĐÃ TỐI ƯU) ---
+        // --- Hàm Tạo Hiệu Ứng Hoa Rơi ---
         function createConfetti() {
             const numParticles = 60;
             for (let i = 0; i < numParticles; i++) {
@@ -342,9 +342,7 @@
         function showSlide(index) {
             
             if (index >= contentData.length) {
-                // DỪNG TRÌNH CHIẾU VÀ TẮT NHẠC
-                backgroundMusic.pause();
-                backgroundMusic.currentTime = 0; 
+                // DỪNG TRÌNH CHIẾU, NHẠC TIẾP TỤC CHẠY CHO ĐẾN HẾT BÀI
                 return; 
             }
             
@@ -376,11 +374,11 @@
                     
                     videoDisplay.load();
                     
-                    // 🎯 Đảm bảo video tải dữ liệu xong và hiện lên mờ dần (fade in) trước khi gõ chữ
+                    // Đảm bảo video tải dữ liệu xong và hiện lên mờ dần (fade in) trước khi gõ chữ
                     videoDisplay.onloadeddata = () => {
                         videoDisplay.muted = true;
                         videoDisplay.play().catch(e => console.log("Video play blocked:", e));
-                        // ✅ Đặt opacity=1 TẠI ĐÂY để nó hiện lên ngay khi tải xong
+                        // Đặt opacity=1 TẠI ĐÂY để nó hiện lên ngay khi tải xong
                         videoDisplay.style.opacity = 1; 
                         
                         // Bắt đầu gõ chữ ngay sau khi video hiện
@@ -388,11 +386,8 @@
                             // Chuyển slide (nếu chưa phải slide cuối) khi cả tin nhắn và video đã xong
                             if (videoEnded && !isLastSlide) {
                                 slideInterval = setTimeout(nextSlide, 1000);
-                            } else if (videoEnded && isLastSlide) {
-                                // Slide cuối (có video) + mọi thứ xong -> DỪNG
-                                backgroundMusic.pause();
-                                backgroundMusic.currentTime = 0;
-                            }
+                            } 
+                            // Nếu là slide cuối, không làm gì, để video và nhạc tự chạy hết
                         });
                     };
                     
@@ -400,15 +395,10 @@
                     videoDisplay.onended = () => {
                         videoEnded = true;
                         
-                        if (messagesCompleted) { 
-                             if (!isLastSlide) {
-                                 slideInterval = setTimeout(nextSlide, 1000);
-                             } else {
-                                 // Slide cuối (có video) + mọi thứ xong -> DỪNG
-                                 backgroundMusic.pause();
-                                 backgroundMusic.currentTime = 0;
-                             }
+                        if (messagesCompleted && !isLastSlide) { 
+                             slideInterval = setTimeout(nextSlide, 1000);
                         }
+                        // Nếu là slide cuối, không làm gì
                     };
                     
                 } else {
@@ -419,7 +409,7 @@
 
                     // Hàm chạy khi ảnh tải xong
                     const handleImageLoad = () => {
-                        // ✅ Đặt opacity=1 TẠI ĐÂY để nó hiện lên ngay khi tải xong
+                        // Đặt opacity=1 TẠI ĐÂY để nó hiện lên ngay khi tải xong
                         photoDisplay.style.opacity = 1; 
                         
                         // Sau khi ảnh hiện, bắt đầu gõ chữ
@@ -427,15 +417,12 @@
                             // Chỉ set interval nếu KHÔNG phải slide cuối
                             if (!isLastSlide) {
                                 slideInterval = setTimeout(nextSlide, delayBetweenSlides);
-                            } else {
-                                // NẾU ĐÂY LÀ SLIDE CUỐI CÙNG (CHỈ CÓ ẢNH), DỪNG NHẠC VÀ ĐỨNG YÊN
-                                backgroundMusic.pause();
-                                backgroundMusic.currentTime = 0;
-                            }
+                            } 
+                            // Nếu là slide cuối, không làm gì, để nhạc tự chạy hết bài
                         });
                     };
 
-                    // 🎯 KẾT HỢP KIỂM TRA ONLOAD VÀ CACHE
+                    // KẾT HỢP KIỂM TRA ONLOAD VÀ CACHE
                     photoDisplay.onload = handleImageLoad;
                     
                     // Nếu ảnh đã được cache (tải rất nhanh), onload không gọi. Kiểm tra và gọi thủ công:
@@ -475,7 +462,3 @@
     </script>
 </body>
 </html>
-
-
-
-
